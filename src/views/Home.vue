@@ -1,6 +1,7 @@
 <template>
   <div>
     Hello World
+    Backstage
   </div>
 </template>
 
