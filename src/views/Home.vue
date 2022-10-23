@@ -1,7 +1,7 @@
 <template>
   <div>
     Hello World
-    Backstage
+    Backstage test
   </div>
 </template>
 
