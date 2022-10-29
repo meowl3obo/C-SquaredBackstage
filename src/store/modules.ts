@@ -1,6 +1,6 @@
-import Data from './data'
+import ClassifyModule from './classify'
 
 
 export const modules = {
-    Data,
+  ClassifyModule
 };
