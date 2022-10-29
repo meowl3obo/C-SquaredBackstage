@@ -20,7 +20,7 @@
         </option>
       </select>
     </div>
-    <template v-if="childClassifies?.length > 0">
+    <template v-if="childClassifies && childClassifies.length > 0">
       <div>
         <label for="childClassify">子分類</label>
         <select id="childClassify" v-model="productData.ChildClassify">
