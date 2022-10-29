@@ -60,9 +60,6 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const classifies = computed(() => store.getters["Classify/GetClassify"] as Array<IParentClassify>)
-    const childClassifies = computed(() => {
-      return classifies.value.find((x) => x.Id == productData.ParentClassify)?.Child
-    })
     const mainImgFile = ref<File | null>(null);
     const otherImgFile = ref<Array<File>>([]);
     const productData = reactive<IProduct>({
@@ -73,6 +70,9 @@ export default defineComponent({
       ChildClassify: 1,
       Price: 0,
     });
+    const childClassifies = computed(() => {
+      return classifies.value.find((x) => x.Id == productData.ParentClassify)?.Child
+    })
 
     const getFormData = () => {
       const formData = new FormData()
