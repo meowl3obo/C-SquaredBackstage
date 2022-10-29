@@ -12,4 +12,6 @@ const ClassifyModule: Module<TState, TState> = {
   getters
 }
 
+export type ClassifyState = TState
+
 export default ClassifyModule

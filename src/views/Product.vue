@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="createRequest">
+    <button @click="toRoute('/product/create')">
       create
     </button>
     <router-view></router-view>
@@ -9,14 +9,17 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
-    const createRequest = () => {
-      console.log("create")
+    const router = useRouter();
+
+    const toRoute = (route: string) => {
+      router.push(route)
     }
 
-    return { createRequest }
+    return { toRoute }
   },
 });
 </script>

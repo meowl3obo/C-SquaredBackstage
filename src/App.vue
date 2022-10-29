@@ -18,20 +18,13 @@
 
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from "vue";
-import { GetClassifies } from "@/apis/classify"
+import { getClassifies } from "@/library/global/DefaultData"
 
 export default defineComponent({
   components: {
-    Sidebar: defineAsyncComponent(
-      () => import("@/components/global/Sidebar.vue")
-    ),
+    Sidebar: defineAsyncComponent(() => import("@/components/global/Sidebar.vue")),
   },
   setup() {
-    const getClassifies = async () => {
-      const classifies = await GetClassifies()
-      console.log(classifies)
-    }
-
     getClassifies();
   },
 });
