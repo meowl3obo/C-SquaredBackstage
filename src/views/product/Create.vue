@@ -10,7 +10,7 @@
     </div>
     <div>
       <label for="illustrate">詳細介紹</label>
-      <input id="illustrate" type="text" v-model="productData.Illustrate" />
+      <ckeditor :editor="ClassicEditor" v-model="productData.Illustrate" :config="{}" />
     </div>
     <div>
       <label for="parentClassify">主分類</label>
@@ -53,13 +53,16 @@
       <input id="unit" type="text" v-model="productData.Unit">
     </div>
     <div>
-      <label for="inventory">庫存</label>
-      <input id="inventory" type="number" v-model="productData.Inventory">
+      <label for="nowAmount">現貨庫存</label>
+      <input id="nowAmount" type="number" v-model="productData.NowAmount">
+    </div>
+    <div>
+      <label for="preOrderAmount">預購上限</label>
+      <input id="preOrderAmount" type="number" v-model="productData.PreOrderAmount">
     </div>
     <div>
       <button @click="submit">Submit</button>
     </div>
-
   </div>
 </template>
 
@@ -69,6 +72,7 @@ import { useStore } from "vuex"
 import { createProduct } from "@/apis/product"
 import { IProduct } from "@/type/product/Product";
 import { IParentClassify } from "@/type/product/Classify";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default defineComponent({
   setup() {
@@ -86,7 +90,8 @@ export default defineComponent({
       Color: "",
       Size: 0,
       Unit: "",
-      Inventory: 0,
+      PreOrderAmount: 0,
+      NowAmount: 0,
     });
     const childClassifies = computed(() => {
       return classifies.value.find((x) => x.Id == productData.ParentClassify)?.Child
@@ -105,7 +110,8 @@ export default defineComponent({
       formData.append("color", productData.Color)
       formData.append("size", productData.Size.toString())
       formData.append("unit", productData.Unit)
-      formData.append("inventory", productData.Inventory.toString())
+      formData.append("preOrderAmount", productData.PreOrderAmount.toString())
+      formData.append("nowAmount", productData.NowAmount.toString())
       otherImgFile.value.forEach((item) => {
         formData.append("otherImg", item)
       })
@@ -145,7 +151,7 @@ export default defineComponent({
       () => { productData.ChildClassify = 1 }
     )
 
-    return { classifies, childClassifies, productData, uploadMain, uploadOther, submit };
+    return { ClassicEditor, classifies, childClassifies, productData, uploadMain, uploadOther, submit };
   },
 });
 </script>

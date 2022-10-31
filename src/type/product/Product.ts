@@ -9,5 +9,6 @@ export interface IProduct {
   Color: string
   Size: number
   Unit: string
-  Inventory: number
+  PreOrderAmount: number
+  NowAmount: number
 }
