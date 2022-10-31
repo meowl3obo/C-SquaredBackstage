@@ -6,4 +6,8 @@ export interface IProduct {
   ParentClassify: number
   ChildClassify: number
   Price: number
+  Color: string
+  Size: number
+  Unit: string
+  Inventory: number
 }

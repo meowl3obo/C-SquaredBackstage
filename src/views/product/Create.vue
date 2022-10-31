@@ -43,6 +43,20 @@
       <input id="otherImg" type="file" accept="image/*" @change="uploadOther" multiple>
     </div>
     <div>
+      <label for="color">顏色</label>
+      <input id="color" type="text" v-model="productData.Color">
+    </div>
+    <div>
+      <label for="size">尺寸</label>
+      <input id="size" type="number" v-model="productData.Size">
+      <label for="unit">尺寸單位</label>
+      <input id="unit" type="text" v-model="productData.Unit">
+    </div>
+    <div>
+      <label for="inventory">庫存</label>
+      <input id="inventory" type="number" v-model="productData.Inventory">
+    </div>
+    <div>
       <button @click="submit">Submit</button>
     </div>
 
@@ -69,6 +83,10 @@ export default defineComponent({
       ParentClassify: 1,
       ChildClassify: 1,
       Price: 0,
+      Color: "",
+      Size: 0,
+      Unit: "",
+      Inventory: 0,
     });
     const childClassifies = computed(() => {
       return classifies.value.find((x) => x.Id == productData.ParentClassify)?.Child
@@ -84,6 +102,10 @@ export default defineComponent({
       formData.append("parentClassify", productData.ParentClassify.toString())
       formData.append("childClassify", productData.ChildClassify.toString())
       formData.append("price", productData.Price.toString())
+      formData.append("color", productData.Color)
+      formData.append("size", productData.Size.toString())
+      formData.append("unit", productData.Unit)
+      formData.append("inventory", productData.Inventory.toString())
       otherImgFile.value.forEach((item) => {
         formData.append("otherImg", item)
       })
