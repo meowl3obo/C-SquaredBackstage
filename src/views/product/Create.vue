@@ -143,7 +143,29 @@ export default defineComponent({
     const submit = async () => {
       const formData = getFormData()
       const response = await createProduct(formData)
-      console.log(response)
+      if (response.status == 200) {
+        const { data } = response;
+        console.log(data)
+        if (data.ResultCode == 200) clearAll()
+      } else {
+        console.log(response.status, response.statusText)
+      }
+    }
+
+    const clearAll = () => {
+      productData.Name = ""
+      productData.Intro = ""
+      productData.Illustrate = ""
+      productData.ParentClassify = 1
+      productData.ChildClassify = 1
+      productData.Price = 0
+      productData.Color = ""
+      productData.Size = 0
+      productData.Unit = ""
+      productData.PreOrderAmount = 0
+      productData.NowAmount = 0
+      mainImgFile.value = null
+      otherImgFile.value = []
     }
 
     watch(
