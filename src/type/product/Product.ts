@@ -11,4 +11,6 @@ export interface IProduct {
   Unit: string
   PreOrderAmount: number
   NowAmount: number
+  IsNew: boolean
+  IsSale: boolean
 }

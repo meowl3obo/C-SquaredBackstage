@@ -61,6 +61,14 @@
       <input id="preOrderAmount" type="number" v-model="productData.PreOrderAmount">
     </div>
     <div>
+      <label for="new">新品</label>
+      <input id="new" type="checkbox" v-model="isNew" value="1">
+    </div>
+    <div>
+      <label for="sale">特價</label>
+      <input id="sale" type="checkbox" v-model="isSale" value="1">
+    </div>
+    <div>
       <button @click="submit">Submit</button>
     </div>
   </div>
@@ -80,6 +88,8 @@ export default defineComponent({
     const classifies = computed(() => store.getters["Classify/GetClassify"] as Array<IParentClassify>)
     const mainImgFile = ref<File | null>(null);
     const otherImgFile = ref<Array<File>>([]);
+    const isNew = ref<Array<number>>([])
+    const isSale = ref<Array<number>>([])
     const productData = reactive<IProduct>({
       Name: "",
       Intro: "",
@@ -92,6 +102,8 @@ export default defineComponent({
       Unit: "",
       PreOrderAmount: 0,
       NowAmount: 0,
+      IsNew: false,
+      IsSale: false,
     });
     const childClassifies = computed(() => {
       return classifies.value.find((x) => x.Id == productData.ParentClassify)?.Child
@@ -112,6 +124,8 @@ export default defineComponent({
       formData.append("unit", productData.Unit)
       formData.append("preOrderAmount", productData.PreOrderAmount.toString())
       formData.append("nowAmount", productData.NowAmount.toString())
+      formData.append("isNew", productData.IsNew.toString())
+      formData.append("isSale", productData.IsSale.toString())
       otherImgFile.value.forEach((item) => {
         formData.append("otherImg", item)
       })
@@ -122,7 +136,6 @@ export default defineComponent({
     const uploadMain = (imgInput: Event) => {
       const target = imgInput.target as HTMLInputElement
       const { files } = target
-      console.log(files)
       if (files) {
         const file = files[0]
         mainImgFile.value = file
@@ -164,8 +177,12 @@ export default defineComponent({
       productData.Unit = ""
       productData.PreOrderAmount = 0
       productData.NowAmount = 0
+      productData.IsNew = false
+      productData.IsSale = false
       mainImgFile.value = null
       otherImgFile.value = []
+      isNew.value = []
+      isSale.value = []
     }
 
     watch(
@@ -173,7 +190,27 @@ export default defineComponent({
       () => { productData.ChildClassify = 1 }
     )
 
-    return { ClassicEditor, classifies, childClassifies, productData, uploadMain, uploadOther, submit };
+    watch(
+      () => { return isNew.value },
+      () => { 
+        if (isNew.value.length > 0) productData.IsNew = true
+        else productData.IsNew = false
+      }
+    )
+
+    watch(
+      () => { return isSale.value },
+      () => { 
+        if (isSale.value.length > 0) productData.IsSale = true
+        else productData.IsSale = false
+      }
+    )
+
+    
+
+
+    return { ClassicEditor, classifies, childClassifies, productData, isNew, isSale, uploadMain, uploadOther, submit };
   },
 });
 </script>
+
